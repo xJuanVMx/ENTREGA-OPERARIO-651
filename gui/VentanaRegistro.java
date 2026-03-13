@@ -5,6 +5,7 @@ import java.awt.EventQueue;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
+import javax.swing.JScrollPane;
 import javax.swing.border.EmptyBorder;
 
 import clases.ModeloDatos;
@@ -98,11 +99,11 @@ public class VentanaRegistro extends JFrame implements ActionListener  {
 		contentPane.add(txtAntiguedad);	
 		
 
-		JLabel lblDocumento = new JLabel("Nombre:");
+		JLabel lblDocumento = new JLabel("Documento:");
 		lblDocumento.setBounds(55, 135, 90, 16);
 		contentPane.add(lblDocumento);		
 		
-		JLabel lblNombre = new JLabel("Documento:");
+		JLabel lblNombre = new JLabel("Nombre:");
 		lblNombre.setBounds(55, 185, 90, 16);
 		contentPane.add(lblNombre);	
 		
@@ -125,7 +126,7 @@ public class VentanaRegistro extends JFrame implements ActionListener  {
 		
 		
 		btnRegistrar = new JButton("Registrar");
-		btnRegistrar.setBounds(30, 392, 415, 29);
+		btnRegistrar.setBounds(30, 342, 415, 29);
 		btnRegistrar.addActionListener(this);
 		contentPane.add(btnRegistrar);
 		
@@ -153,6 +154,7 @@ public class VentanaRegistro extends JFrame implements ActionListener  {
 		btnConsultar.addActionListener(this);
 		contentPane.add(btnConsultar);
 		
+		
 	}
 
 
@@ -170,7 +172,10 @@ public class VentanaRegistro extends JFrame implements ActionListener  {
 			consultarIndividual();
 		}else if(e.getSource()==btnConsultarLista) {
 			
-			miModelo.consultarOperarioLista();
+			String lista = miModelo.consultarOperarioLista();
+
+			VentanaListaOperarios ventana = new VentanaListaOperarios(lista);
+			ventana.setVisible(true);
 		}
 		
 	}
@@ -219,7 +224,7 @@ private void registrarOperario() {
 	
 	String resp=miModelo.registrarOperario(miOperario);
 	
-	if(resp.equals("Si")) {
+	if((resp.equalsIgnoreCase("si"))) {
 		JOptionPane.showMessageDialog(null, "REGISTRO EXITOSO");
 	}else {
 		JOptionPane.showMessageDialog(null, "No se pudo registrar, ya existe");
